@@ -17,3 +17,31 @@
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+
+.main-box {
+    padding-bottom: 75px !important;
+}
+
+.title-box h1 {
+    color: purple;
+}
+
+.title-box h3 {
+    color: darkcyan;
+    font-style: italic;
+}
+
+.content-box h2 {
+    color: navy;
+    margin-top: 40px;
+}
+
+footer {
+    padding: 200px;
+}
+
+footer h6 {
+    color: gray;
+    font-size: 13pt;
+    font-style: italic;
+}

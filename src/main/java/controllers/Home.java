@@ -3,6 +3,7 @@ package controllers;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import services.PageService;
 
 import java.io.IOException;
 
@@ -11,23 +12,21 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = request.getParameter("page");
+        if(page.isBlank()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
         switch (page) {
             case "about":
-                goToPageAndSetTitle(request, response, "views/home/about.jsp", "- Про сайт");
+                PageService.goToPage(request, response, "views/home/about.jsp", "- Про сайт", null);
                 break;
             case "contacts":
-                goToPageAndSetTitle(request, response, "views/home/contacts.jsp", "- Контакти");
+                PageService.goToPage(request, response, "views/home/contacts.jsp", "- Контакти", null);
                 break;
             case "feedback":
-                goToPageAndSetTitle(request, response, "views/home/feedback.jsp", "- Feedback");
+                PageService.goToPage(request, response, "views/home/feedback.jsp", "- Feedback", null);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-    }
-    private void goToPageAndSetTitle(HttpServletRequest request, HttpServletResponse response, String pagePath, String pageTittle) throws ServletException, IOException{
-        request.setAttribute("title", pageTittle);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(pagePath);
-        dispatcher.forward(request, response);
     }
 }
