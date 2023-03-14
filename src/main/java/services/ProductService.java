@@ -1,20 +1,22 @@
 package services;
 
+import controllers.Products;
 import data.DbProvider;
 import models.Department;
+import models.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepsService {
+public class ProductService {
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
     private int status;
 
-    public DepsService() {
+    public ProductService() {
         this.connection = null;
         this.statement = null;
         this.resultSet = null;
@@ -22,17 +24,17 @@ public class DepsService {
         this.status = 0;
     }
 
-    public List<Department> getAllDeps () {
-        List<Department> departments = new ArrayList<Department>();
+    public List<Product> getAllDeps () {
+        List<Product> products = new ArrayList<Product>();
         try {
             connection = DbProvider.getMySQLConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from departments order by id");
+            resultSet = statement.executeQuery("select * from products order by id");
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                var dep = new Department(id, name);
-                departments.add(dep);
+                var product = new Product(id, name);
+                products.add(product);
             }
             resultSet.close();
             statement.close();
@@ -60,6 +62,6 @@ public class DepsService {
                 System.out.println("Final SQLException" + ex.getMessage());
             }
         }
-        return departments;
+        return products;
     }
 }
