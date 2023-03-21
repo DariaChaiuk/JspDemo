@@ -14,8 +14,28 @@ public class PageService {
             @NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull String pagePath,
             @NotNull String pageTittle, @Nullable Object service) throws ServletException, IOException {
         request.setAttribute("title", pageTittle);
-        //request.setAttribute("service", service);
+        request.setAttribute("service", service);
         RequestDispatcher dispatcher = request.getRequestDispatcher(pagePath);
+        dispatcher.forward(request, response);
+    }
+
+    public static void goToAuthResult(HttpServletRequest request, HttpServletResponse response,
+            String pageTitle, String resultMessage, boolean resultSuccess)
+            throws ServletException, IOException {
+
+        var color = "";
+        var message = resultMessage;
+        if(resultSuccess) {
+            color = "green";
+        }
+        else {
+            color = "red";
+        }
+
+        request.setAttribute("title", pageTitle);
+        request.setAttribute("color", color);
+        request.setAttribute("message", message);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/auth/signup_res.jsp");
         dispatcher.forward(request, response);
     }
 }

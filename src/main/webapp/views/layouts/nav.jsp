@@ -1,3 +1,6 @@
+<%@ page import="models.User" %>
+<%@ page import="controllers.Auth" %>
+<%@ page import="services.AuthService" %>
 <%@ page pageEncoding="UTF-8" language="java" %>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <div class="container-fluid">
@@ -37,14 +40,16 @@
                 <ul class="navbar-nav ms-auto nb-2 mb-md-0">
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="margin-right: 75px">
-                            <span style="color: bisque">Привіт, Гість!</span>
+                            <span style="color: bisque">Привіт,
+                                <%= AuthService.getCurrentUserLogin(request)%>!
+                            </span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Вхід</a>
+                        <a class="nav-link" href="Auth?page=signin">Вхід</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Реєстрація</a>
+                        <a class="nav-link" href="Auth?page=signup">Реєстрація</a>
                     </li>
                 </ul>
             </div>
